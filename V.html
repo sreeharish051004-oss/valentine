@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .container {
+      z-index: 2;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #b30047;
+      font-size: clamp(24px, 6vw, 36px);
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #444;
+      color: white;
+    }
+
+    #slideshow {
+      display: none;
+      margin-top: 25px;
+    }
+
+    #slideshow img {
+      width: 280px;
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fade 1s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <div class="buttons">
+      <button id="yes">Yes 💕</button>
+      <button id="no">No 😢</button>
+    </div>
+
+    <div id="slideshow">
+      <h2>Us forever 🥰💘</h2>
+      <img id="slide" src="" alt="Memories">
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const slideshow = document.getElementById("slideshow");
+    const slideImg = document.getElementById("slide");
+
+    let yesScale = 1;
+
+    // Make YES grow when NO is approached
+    noBtn.addEventListener("mouseenter", () => {
+      yesScale += 0.2;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    });
+
+    noBtn.addEventListener("touchstart", () => {
+      yesScale += 0.2;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    });
+
+    // Image list — ADD YOUR IMAGES HERE
+    const images = [
+      "j.jpeg",
+      "kj.jpeg",
+      "mj.jpeg",
+      "n.jpeg",
+      "o.jpeg",
+      "rf.jpeg",
+      "Screenshot 2025-08-28 132939.png",
+      "Screenshot 2025-08-28 133058.png",
+      "WhatsApp Image 2025-05-29 at 11.51.06_e22bed49.jpg",
+      "WhatsApp Image 2026-02-03 at 10.08.29 PM.jpeg"
+    ];
+
+    let currentIndex = 0;
+
+    function showNextImage() {
+      slideImg.src = images[currentIndex];
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    yesBtn.addEventListener("click", () => {
+      document.querySelector(".buttons").style.display = "none";
+      slideshow.style.display = "block";
+      showNextImage();
+      setInterval(showNextImage, 2500);
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
